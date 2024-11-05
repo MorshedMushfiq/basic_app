@@ -1,7 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 
-class customUser(AbstractUser):
+class CustomUser(AbstractUser):
     
     USER=[
         ('seller','Seller'),
@@ -15,18 +15,18 @@ class customUser(AbstractUser):
         
         return f"{self.username}"
     
-class seekerProfileModel(models.Model):
+class CustomerProfileModel(models.Model):
     
-    user=models.OneToOneField(customUser,on_delete=models.CASCADE,related_name='seekerProfile')
+    user=models.OneToOneField(CustomUser,on_delete=models.CASCADE,related_name='CustomerProfile')
    
     def __str__(self):
         return f"{self.user.username}"
     
     
-class recruiterProfileModel(models.Model):
+class SellerProfileModel(models.Model):
     
    
-    user = models.OneToOneField(customUser, on_delete=models.CASCADE,related_name='recruiterProfile')
+    user = models.OneToOneField(CustomUser, on_delete=models.CASCADE,related_name='SellerProfile')
    
     def __str__(self):
         return f"{self.user.username}"

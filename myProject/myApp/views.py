@@ -22,7 +22,7 @@ def signupPage(request):
         if password==Confirm_password:
             
             
-            user=customUser.objects.create_user(
+            user=CustomUser.objects.create_user(
                 username=username,
                 email=email,
                 password=password,
@@ -30,15 +30,15 @@ def signupPage(request):
                 Profile_Pic=Profile_Pic,
                 contact_no=contact_no,
             )
-            if user_type=='seeker':
-                seekerProfileModel.objects.create(user=user)
+            if user_type=='seller':
+                SellerProfileModel.objects.create(user=user)
                 
             elif user_type=='recruiter':
-                recruiterProfileModel.objects.create(user=user)
+                CustomerProfileModel.objects.create(user=user)
             
             return redirect("signInPage")
             
-    return render(request,"signupPage.html")
+    return render(request,"common/signupPage.html")
 
 
 def signInPage(request):
@@ -56,16 +56,16 @@ def signInPage(request):
             else:
                 return redirect('signInPage')
 
-        except customUser.DoesNotExist:
+        except CustomUser.DoesNotExist:
             return redirect('signInPage')
 
-    return render(request, 'signInPage.html')
+    return render(request, 'common/signInPage.html')
 
 @login_required
 def homePage(request):
     
     
-    return render(request,"homePage.html")
+    return render(request,"common/homePage.html")
 
 
 def logoutPage(request):
@@ -77,7 +77,7 @@ def logoutPage(request):
 @login_required
 def profilePage(request):
     
-    return render(request,"profilePage.html")
+    return render(request,"common/profilePage.html")
 
 @login_required
 def editProfile(request):
@@ -93,4 +93,4 @@ def editProfile(request):
         current_user.save()
         return redirect("profilePage")
     
-    return render(request,"editProfile.html")
+    return render(request,"common/editProfile.html")
